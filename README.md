@@ -2,28 +2,28 @@
 # Mobile Robotics Project: Reactive Navigation via Hybrid Reciprocal Velocity Obstacles (HRVO)
 
 **Course:** Mobile Robotics (MR)  
-**Status:** ✅ All Phases Complete (VO/RVO/HRVO, Multi-Agent, Maze Demo)  
+**Status:**  All Phases Complete (VO/RVO/HRVO, Multi-Agent, Maze Demo)  
 **Language:** MATLAB (Simulation)
 
-## 📌 Project Overview
+##  Project Overview
 This project explores the transition from static path planning to dynamic, reactive navigation in multi-agent environments. While traditional algorithms like A* or Dijkstra provide optimal paths in immutable environments, they fail in chaotic environments where obstacles (pedestrians, other robots) are in constant motion.
 
 Our objective is to implement and simulate **Velocity Obstacles (VO)** and its advanced variants, **Reciprocal Velocity Obstacles (RVO)** and **Hybrid Reciprocal Velocity Obstacles (HRVO)**. These algorithms shift the planning perspective from the Cartesian configuration space ($x, y$) to the **velocity space** ($v_x, v_y$), allowing agents to anticipate collisions before they happen.
 
 **Architectural Pivot:** Following recent advisement, we have moved away from a ROS/Gazebo visualization bridge. Instead, we are focusing on a **Layered Planning Architecture**, demonstrating how our reactive planners (Local Layer) can be integrated with established global path planners (Global Layer) to navigate large, complex maps.
 
-## 🚀 Current Status
+##  Current Status
 | Feature | Status | Description |
 | :--- | :--- | :--- |
-| **Framework** | ✅ Complete | Modular simulation engine (`main_simulation.m`) with unicycle kinematics. |
-| **Phase 1: VO** | ✅ Complete | Dynamic Velocity Obstacles with multi-speed sampling in `plan_VO.m`. |
-| **Phase 2: RVO** | ✅ Complete | Reciprocal Velocity Obstacles solving oscillation problem in `plan_RVO_new.m`. |
-| **Phase 3: HRVO** | ✅ Complete | Hybrid RVO with true geometric apex intersection in `plan_HRVO_new.m`. |
-| **Phase 4: Multi-Agent** | ✅ Complete | Full N-robot system in `multi_agent_simulation.m` with parallel planning. |
-| **Phase 5: Scenarios** | ✅ Complete | Extended scenarios: `crossing_4`, `swarm_8`, `dense_crowd`, `wall_corridor`, `interactive`. |
-| **Phase 6: Maze Demo** | ✅ Complete | A* global planner + local VO navigation in `maze_demo.m`. |
+| **Framework** |  Complete | Modular simulation engine (`main_simulation.m`) with unicycle kinematics. |
+| **Phase 1: VO** |  Complete | Dynamic Velocity Obstacles with multi-speed sampling in `plan_VO.m`. |
+| **Phase 2: RVO** |  Complete | Reciprocal Velocity Obstacles solving oscillation problem in `plan_RVO_new.m`. |
+| **Phase 3: HRVO** |  Complete | Hybrid RVO with true geometric apex intersection in `plan_HRVO_new.m`. |
+| **Phase 4: Multi-Agent** |  Complete | Full N-robot system in `multi_agent_simulation.m` with parallel planning. |
+| **Phase 5: Scenarios** |  Complete | Extended scenarios: `crossing_4`, `swarm_8`, `dense_crowd`, `wall_corridor`, `interactive`. |
+| **Phase 6: Maze Demo** |  Complete | A* global planner + local VO navigation in `maze_demo.m`. |
 
-## 📂 Repository Structure
+##  Repository Structure
 The repository is organized to separate the physical simulation from the algorithmic "brain".
 
 ```text
@@ -43,9 +43,9 @@ MR-Project-VOs/
 │   └── Simulator.m            # (Future use)
 │
 ├── algorithms/                # The "Brains" - Path Planning Logic
-│   ├── plan_VO.m              # PHASE 1 — Dynamic Velocity Obstacles (✅)
-│   ├── plan_RVO_new.m         # PHASE 2 — Reciprocal VOs (✅)
-│   └── plan_HRVO_new.m        # PHASE 3 — Hybrid RVOs (✅)
+│   ├── plan_VO.m              # PHASE 1 — Dynamic Velocity Obstacles ()
+│   ├── plan_RVO_new.m         # PHASE 2 — Reciprocal VOs ()
+│   └── plan_HRVO_new.m        # PHASE 3 — Hybrid RVOs ()
 │
 ├── global_planner/            # NEW — Global Path Planning (Phase 6)
 │   ├── astar_grid.m           # A* pathfinding on occupancy grid
@@ -79,7 +79,7 @@ MR-Project-VOs/
 └── output/                    # Generated video recordings
 ````
 
-## 🛠️ Usage & Installation
+##  Usage & Installation
 
 ### Prerequisites
 
@@ -148,7 +148,7 @@ ALGORITHM = 1;   % 1=VO, 2=RVO, 3=HRVO
 % Outputs a summary table with success rates and times
 ```
 
-## 🧠 Architectural Highlights
+##  Architectural Highlights
 
 ### 1\. "Hot-Swappable" Brains
 
@@ -169,7 +169,7 @@ Instead of relying solely on reactive logic, which can get stuck in large U-shap
   * **Global Layer:** Calculates a high-level path (waypoints) from Start to Goal using a standard algorithm (e.g., A\*).
   * **Local Layer (VO/HRVO):** Follows the global waypoints while actively dodging dynamic obstacles in real-time.
 
-## 📚 Theoretical Background
+##  Theoretical Background
 
 ### Velocity Obstacles (VO) - *Implemented* [Fiorini & Shiller, 1998]
 
@@ -230,7 +230,7 @@ This creates the correct asymmetric forbidden region that implicitly encodes a *
 - **Dynamic obstacles:** Full HRVO with hybrid apex intersection
 - **Static obstacles:** Fall back to standard VO (apex at $v_B = [0,0]$)
 
-## 🔬 Implementation Details
+##  Implementation Details
 
 ### Algorithm Comparison
 
@@ -238,8 +238,8 @@ This creates the correct asymmetric forbidden region that implicitly encodes a *
 |:---------|:---|:----|:-----|
 | Apex Location | $v_B$ | $\frac{v_A + v_B}{2}$ | Intersection of VO/RVO legs |
 | Cone Geometry | Symmetric | Symmetric | **Asymmetric** |
-| Oscillation | ❌ Causes jitter | ✅ Eliminated | ✅ Eliminated |
-| Reciprocal Dance | N/A | ❌ Can occur | ✅ Eliminated |
+| Oscillation | ❌ Causes jitter |  Eliminated |  Eliminated |
+| Reciprocal Dance | N/A | ❌ Can occur |  Eliminated |
 | Static Obstacles | Works | Falls back to VO | Falls back to VO |
 
 ### Key Implementation Choices
@@ -250,7 +250,7 @@ This creates the correct asymmetric forbidden region that implicitly encodes a *
 4. **Velocity Sampling:** Multi-resolution search with 5 speed fractions and 37 angles
 5. **Emergency Escape:** Immediate reverse if already in collision configuration
 
-## 🧪 Simulation Scenarios
+##  Simulation Scenarios
 
 We validate our algorithms against 5 distinct scenarios:
 
@@ -260,7 +260,7 @@ We validate our algorithms against 5 distinct scenarios:
 4.  **Somewhat Busy:** Robot crossing paths with dynamic agents moving at constant velocities.
 5.  **Very Busy Plaza:** A "stress test" with multiple crossing paths and static obstacles to ensure no deadlocks occur.
 
-## 👥 Team & Plan
+##  Team & Plan
 
 This project is executed by a team of 4, adhering to a 6-week timeline.
 
@@ -269,7 +269,7 @@ This project is executed by a team of 4, adhering to a 6-week timeline.
   * **Member 3 (Architect):** MATLAB Framework, Class Structure, Kinematics.
   * **Member 4 (Global Integration):** Implementation of Global Planner (e.g., A\*) and integration layer with VO/HRVO local planners.
 
-## 🔗 References
+##  References
 
 ### Primary Sources (Velocity Obstacles Family)
 
